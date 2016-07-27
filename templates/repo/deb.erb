@@ -1,0 +1,3 @@
+## MANAGED BY PUPPET - DO NOT EDIT!
+deb http://nginx.org/packages/<%- if repo_branch == 'mainline' -%>mainline/<%- end -%><%= scope['os']['name'].downcase -%>/ <%= scope['os']['distcodename'].downcase -%> nginx
+deb-src http://nginx.org/packages/<%- if repo_branch == 'mainline' -%>mainline/<%- end -%><%= scope['os']['name'].downcase -%>/ <%= scope['os']['distcodename'].downcase -%> nginx

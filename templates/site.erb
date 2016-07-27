@@ -1,0 +1,58 @@
+## MANAGED BY PUPPET - DO NOT EDIT!
+<%# begin ssl only section -%>
+<%- if @ssl_only -%>
+server {
+  listen <%= @listen_addr -%> <%= @listen_default -%> <%= @listen_opts %>;
+  server_name <%= @servername %>;
+  <%- if @ssl_custom_redirect -%>
+  return <%= @ssl_custom_redirect %>;
+  <%- else -%>
+  return 301 https://$server_name$request_uri;
+  <%- end -%>
+}
+<%- end -%>
+<%# end ssl only section -%>
+<%# begin main section -%>
+server {
+<%# begin "core" configuration -%>
+  <%- if !@ssl_only -%>
+  listen <%= @listen_addr -%> <%= @listen_default -%> <%= @listen_opts %>;
+  <%- end -%>
+  <%- if @ssl_enabled or @ssl_only-%>
+  listen <%= @ssl_listen_addr -%> <%= @ssl_listen_default -%> ssl <%= @ssl_listen_opts %>;
+  <%- end -%>
+  server_name <%= @servername %>;
+  <%- if @log_format -%>
+  log_format <%= @log_format %>;
+  <%- end -%>
+  <%- if @custom_access_log -%>
+  access_log <%= @custom_access_log %>;
+  <%- else -%>
+  access_log <%= @access_log %>;
+  <%- end -%>
+  error_log <%= @error_log -%> <%= @error_log_level %>;
+  <%- if @root -%>
+  root <%= @root %>;
+  <%- end -%>
+  index <%= @index %>;
+<%# end "core" configuration -%>
+<%# begin custom/extra options -%>
+  <%- if @extra_options -%>
+  <%- @extra_options.each do |option, value| -%>
+  <%= option -%> <%= value %><%- if value =~ /[{}]$/ -%><%- %><%- else -%>;<%- end -%>
+  <%- end -%>
+  <%- end -%>
+<%# end custom/extra options -%>
+<%# begin location blocks -%>
+  <%- if @locations -%>
+  <%- @locations.each do |location, block| -%>
+  location <%= location %> {
+    <%- block.each do |option, value| -%>
+    <%= option -%> <%= value %><%- if value =~ /[{}]$/ -%><%- %><%- else -%>;<%- end -%>
+    <%- end -%>
+  }
+  <%- end -%>
+  <%- end -%>
+<%# end location blocks -%>
+}
+<%# end main section -%>

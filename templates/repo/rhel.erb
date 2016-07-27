@@ -1,0 +1,6 @@
+## MANAGED BY PUPPET - DO NOT EDIT!
+[nginx]
+name=nginx <%= @repo_branch %>
+baseurl=http://nginx.org/packages/<%- if @repo_branch == 'mainline' -%>mainline/<%- end -%><%= scope['os']['name'].downcase -%>/<%= scope['os']['release']['major'] -%>/$basearch/
+gpgcheck=0
+enabled=<%= @rhel_repo_enable %>
