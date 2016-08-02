@@ -2,13 +2,13 @@
 user <%= @user %>;
 worker_processes <%= @worker_processes %>;
 pid <%= @pid_file %>;
-<%- if @config_settings['main'] -%>
+<%- if @config_settings.key?('main') -%>
 <%- @config_settings['main'].each do |option, value| -%>
   <%= option -%> <%= value %>;
 <%- end -%>
 <%- end -%>
 events {
-<%- if @config_settings['events'] -%>
+<%- if @config_settings.key?('events') -%>
 <%- @config_settings['events'].each do |option, value| -%>
   <%= option -%> <%= value %>;
 <%- end -%>
@@ -18,7 +18,7 @@ http {
   include <%= @config_dir -%>/mime.types;
   include <%= @config_dir -%>/conf.d/*.conf;
   include <%= @config_dir -%>/sites-enabled/*;
-<%- if @config_settings['http'] -%>
+<%- if @config_settings.key?('http') -%>
 <%- @config_settings['http'].each do |option, value| -%>
   <%= option -%> <%= value %>;
 <%- end -%>

@@ -16,8 +16,8 @@ class nginx (
   $user                = $nginx::params::user,
   $worker_processes    = $nginx::params::worker_processes,
   ## non-parameterized options
-  $config_settings = [],
-  $servers = [],
+  $config_settings = {},
+  $servers         = {},
 ) inherits ::nginx::params {
 
   contain ::nginx::repo
