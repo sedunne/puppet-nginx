@@ -18,6 +18,7 @@ class nginx (
   ## non-parameterized options
   $config_settings = {},
   $servers         = {},
+  $upstreams       = {},
 ) inherits ::nginx::params {
 
   contain ::nginx::repo
