@@ -1,9 +1,9 @@
 ## MANAGED BY PUPPET - DO NOT EDIT!
-<%- if !@upstreams.empty? %>
+<%- if !@upstreams.empty? -%>
 <%- @upstreams.each do |option, value| -%>
-upstream <%- option -%> {
+upstream <%= option %> {
 <%- value.each do |key, value| -%>
-  {{ key }} {{ value }};
+  <%= key -%> <%= value %>;
 <%- end -%>
 }
 <%- end -%>

@@ -4,4 +4,8 @@ class nginx::config inherits ::nginx {
     ensure  => present,
     content => template('nginx/nginx_conf.erb'),
   }
+
+  file {"${config_dir}/conf.d":
+    ensure => directory,
+  }
 }

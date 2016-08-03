@@ -24,6 +24,7 @@ class nginx (
   contain ::nginx::repo
   contain ::nginx::install
   contain ::nginx::config
+  contain ::nginx::upstream
 
   ## this did work before porting into full module
   ## re-enable once module is ready
